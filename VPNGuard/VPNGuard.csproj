@@ -111,15 +111,10 @@
         <Compile Include="Plugin.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="VpnApi\IpHub.cs"/>
-        <Compile Include="VpnCheckCmd.cs"/>
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config"/>
         <None Include="packages.config"/>
-    </ItemGroup>
-    <ItemGroup>
-      <Content Include="LICENSE.md" />
-      <Content Include="README.md" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

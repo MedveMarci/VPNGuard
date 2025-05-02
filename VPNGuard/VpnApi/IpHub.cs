@@ -67,7 +67,7 @@ public class IpHub
                                 {
                                     new
                                     {
-                                        name = $"{player.Nickname} le lett csatlakoztatva VPN miatt.",
+                                        name = $"{player.Nickname} has been kicked for using a VPN!",
                                         value =
                                             $"\n**`\ud83d\udd22`Player:** {player.Nickname} ({player.UserId})\n`\ud83d\udd17` **IP:** {ipHubApiResponse.ip} ({ipHubApiResponse.hostname})\n`\ud83d\uddfa\ufe0f` **Country:** {ipHubApiResponse.countryName} ({ipHubApiResponse.countryCode})\n**ISP:** {ipHubApiResponse.isp}\n**ASN:** {ipHubApiResponse.asn}"
                                     }
@@ -126,7 +126,7 @@ public class IpHub
                                     {
                                         new
                                         {
-                                            name = $"{player.Nickname} le lett csatlakoztatva VPN miatt.",
+                                            name = $"{player.Nickname} has been kicked for using a VPN.",
                                             value =
                                                 $"\n**`\ud83d\udd22`Player:** {player.Nickname} ({player.UserId})\n`\ud83d\udd17` **IP:** {ipHubApiResponse.ip} ({ipHubApiResponse.hostname})\n`\ud83d\uddfa\ufe0f` **Country:** {ipHubApiResponse.countryName} ({ipHubApiResponse.countryCode})\n**ISP:** {ipHubApiResponse.isp}\n**ASN:** {ipHubApiResponse.asn}"
                                         }

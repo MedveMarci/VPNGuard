@@ -10,11 +10,9 @@ public class EventHandler
 {
     public static List<string> CheckedPlayers = [];
     public static List<string> BannedIps = [];
-    public static bool IsCheck = true;
 
     public static void OnVerified(VerifiedEventArgs ev)
     {
-        if (!IsCheck) return;
         try
         {
             if (ev.Player.UserId.Contains("@northwood")) return;
@@ -29,7 +27,7 @@ public class EventHandler
         }
         catch (Exception e)
         {
-            Log.Error("Error in OnPreAuthenticating: " + e);
+            Log.Error("Error in OnVerified: " + e);
         }
     }
 }
