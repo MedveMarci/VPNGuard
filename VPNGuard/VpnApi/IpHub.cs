@@ -38,7 +38,7 @@ public class IpHub
                 return;
             }
 
-            if (ipHubApiResponse.isp.ToLower().Contains("vpn") || ipHubApiResponse.isp.ToLower().Contains("proton"))
+            if (ipHubApiResponse.isp.ToLower().Contains("vpn") || ipHubApiResponse.isp.ToLower().Contains("proton") || ipHubApiResponse.hostname.ToLower().Contains("vpn") || ipHubApiResponse.hostname.ToLower().Contains("proton"))
             {
                 Log.Debug($"{ipAddress} ({player.Nickname}) is a detectable VPN. Kicking...");
                 EventHandler.BannedIps.Add(player.IPAddress);
@@ -186,7 +186,7 @@ public class IpHub
         }
     }
 
-    public class IpHubApiResponse
+    public class IpHubApiResponse 
     {
         public string ip { get; set; }
         public string countryCode { get; set; }
@@ -195,5 +195,7 @@ public class IpHub
         public string isp { get; set; }
         public int block { get; set; }
         public string hostname { get; set; }
+        
+        public IpHubApiResponse() { }
     }
 }
