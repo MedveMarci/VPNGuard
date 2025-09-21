@@ -6,10 +6,10 @@ using VPNGuard.VpnApi;
 
 namespace VPNGuard;
 
-public class EventHandler
+public static class EventHandler
 {
-    public static List<string> CheckedPlayers = [];
-    public static List<string> BannedIps = [];
+    public static readonly List<string> CheckedPlayers = [];
+    public static readonly List<string> BannedIps = [];
 
     public static void OnJoined(PlayerJoinedEventArgs ev)
     {
@@ -18,7 +18,7 @@ public class EventHandler
             if (ev.Player.IsNorthwoodStaff) return;
             if (BannedIps.Contains(ev.Player.IpAddress))
             {
-                ev.Player.Kick(Plugin.PluginInstance.Config.KickReason);
+                ev.Player.Kick(Plugin.Instance.Config.KickReason);
                 return;
             }
 
@@ -28,6 +28,18 @@ public class EventHandler
         catch (Exception e)
         {
             Logger.Error("Error in OnVerified: " + e);
+        }
+    }
+    
+    public static void OnWaitingForPlayers()
+    {
+        try
+        {
+            _ = Plugin.CheckForUpdatesAsync(Plugin.Instance.Version);
+        }
+        catch (Exception e)
+        {
+            Logger.Error("Error in OnWaitingForPlayers: " + e);
         }
     }
 }
