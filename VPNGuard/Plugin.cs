@@ -22,10 +22,12 @@ public class Plugin : Plugin<Config>
     public override string Name => "VPNGuard";
     public override string Author => "MedveMarci";
     public override string Description => "vpn_guard";
-    public override Version Version { get; } = new(1, 0, 1);
+    public override Version Version { get; } = new(1, 0, 2);
     public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
     private static bool PreRelease => false;
     public override bool IsTransparent => true;
+    public string githubRepo = "MedveMarci/VPNGuard";
+
 
     public override void Enable()
     {
