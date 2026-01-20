@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Console;
+using VPNGuard.ApiFeatures;
 using VPNGuard.VpnApi;
 
 namespace VPNGuard;
@@ -18,7 +19,7 @@ public static class EventHandler
             if (ev.Player.IsNorthwoodStaff) return;
             if (BannedIps.Contains(ev.Player.IpAddress))
             {
-                ev.Player.Kick(Plugin.Instance.Config.KickReason);
+                ev.Player.Kick(VpnGuard.Singleton.Config.KickReason);
                 return;
             }
 
@@ -30,12 +31,12 @@ public static class EventHandler
             Logger.Error("Error in OnVerified: " + e);
         }
     }
-    
+
     public static void OnWaitingForPlayers()
     {
         try
         {
-            _ = Plugin.CheckForUpdatesAsync(Plugin.Instance.Version);
+            ApiManager.CheckForUpdates();
         }
         catch (Exception e)
         {

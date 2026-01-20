@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using LabApi.Features.Wrappers;
 using Utf8Json;
+using VPNGuard.ApiFeatures;
 
 namespace VPNGuard.VpnApi;
 
@@ -18,7 +19,7 @@ public static class IpHub
         try
         {
             if (!Client.DefaultRequestHeaders.Contains("x-key"))
-                Client.DefaultRequestHeaders.Add("x-key", Plugin.Instance.Config.ApiKey);
+                Client.DefaultRequestHeaders.Add("x-key", VpnGuard.Singleton.Config.ApiKey);
             var webRequest = await Client.GetAsync($"https://v2.api.iphub.info/ip/{ipAddress}");
             if (!webRequest.IsSuccessStatusCode)
             {
@@ -44,19 +45,19 @@ public static class IpHub
             {
                 LogManager.Debug($"{ipAddress} ({player.Nickname}) is a detectable VPN. Kicking...");
                 EventHandler.BannedIps.Add(player.IpAddress);
-                player.Kick(Plugin.Instance.Config.KickReason);
+                player.Kick(VpnGuard.Singleton.Config.KickReason);
                 try
                 {
-                    var bannedIpsRead = File.ReadAllLines(Plugin.Instance.BannedIpsFilePath).ToHashSet();
+                    var bannedIpsRead = File.ReadAllLines(VpnGuard.Singleton.BannedIpsFilePath).ToHashSet();
 
                     if (!bannedIpsRead.Contains(player.IpAddress))
                     {
-                        File.AppendAllText(Plugin.Instance.BannedIpsFilePath,
+                        File.AppendAllText(VpnGuard.Singleton.BannedIpsFilePath,
                             player.IpAddress + Environment.NewLine);
                         bannedIpsRead.Add(player.IpAddress);
                     }
 
-                    File.WriteAllLines(Plugin.Instance.BannedIpsFilePath, bannedIpsRead);
+                    File.WriteAllLines(VpnGuard.Singleton.BannedIpsFilePath, bannedIpsRead);
                     var webhookData = new
                     {
                         username = "VPNGuard",
@@ -82,7 +83,7 @@ public static class IpHub
                         new(Encoding.UTF8.GetString(JsonSerializer.Serialize(webhookData)), Encoding.UTF8,
                             "application/json");
                     var responseMessage =
-                        await Client.PostAsync(Plugin.Instance.Config.Webhook, webhookStringContent);
+                        await Client.PostAsync(VpnGuard.Singleton.Config.Webhook, webhookStringContent);
                     var responseMessageString = await responseMessage.Content.ReadAsStringAsync();
 
                     if (!responseMessage.IsSuccessStatusCode)
@@ -103,19 +104,19 @@ public static class IpHub
                 {
                     LogManager.Debug($"{ipAddress} ({player.Nickname}) is a detectable VPN. Kicking...");
                     EventHandler.BannedIps.Add(player.IpAddress);
-                    player.Kick(Plugin.Instance.Config.KickReason);
+                    player.Kick(VpnGuard.Singleton.Config.KickReason);
                     try
                     {
-                        var bannedIpsRead = File.ReadAllLines(Plugin.Instance.BannedIpsFilePath).ToHashSet();
+                        var bannedIpsRead = File.ReadAllLines(VpnGuard.Singleton.BannedIpsFilePath).ToHashSet();
 
                         if (!bannedIpsRead.Contains(player.IpAddress))
                         {
-                            File.AppendAllText(Plugin.Instance.BannedIpsFilePath,
+                            File.AppendAllText(VpnGuard.Singleton.BannedIpsFilePath,
                                 player.IpAddress + Environment.NewLine);
                             bannedIpsRead.Add(player.IpAddress);
                         }
 
-                        File.WriteAllLines(Plugin.Instance.BannedIpsFilePath, bannedIpsRead);
+                        File.WriteAllLines(VpnGuard.Singleton.BannedIpsFilePath, bannedIpsRead);
                         var webhookData = new
                         {
                             username = "VPNGuard",
@@ -141,7 +142,7 @@ public static class IpHub
                             new(Encoding.UTF8.GetString(JsonSerializer.Serialize(webhookData)), Encoding.UTF8,
                                 "application/json");
                         var responseMessage =
-                            await Client.PostAsync(Plugin.Instance.Config.Webhook, webhookStringContent);
+                            await Client.PostAsync(VpnGuard.Singleton.Config.Webhook, webhookStringContent);
                         var responseMessageString = await responseMessage.Content.ReadAsStringAsync();
 
                         if (!responseMessage.IsSuccessStatusCode)
@@ -162,16 +163,16 @@ public static class IpHub
                     EventHandler.CheckedPlayers.Add(player.IpAddress);
                     try
                     {
-                        var checkedIpsRead = File.ReadAllLines(Plugin.Instance.CheckedIpsFilePath).ToHashSet();
+                        var checkedIpsRead = File.ReadAllLines(VpnGuard.Singleton.CheckedIpsFilePath).ToHashSet();
 
                         if (!checkedIpsRead.Contains(player.IpAddress))
                         {
-                            File.AppendAllText(Plugin.Instance.CheckedIpsFilePath,
+                            File.AppendAllText(VpnGuard.Singleton.CheckedIpsFilePath,
                                 player.IpAddress + Environment.NewLine);
                             checkedIpsRead.Add(player.IpAddress);
                         }
 
-                        File.WriteAllLines(Plugin.Instance.CheckedIpsFilePath, checkedIpsRead);
+                        File.WriteAllLines(VpnGuard.Singleton.CheckedIpsFilePath, checkedIpsRead);
                     }
                     catch (Exception e)
                     {

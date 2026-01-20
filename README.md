@@ -5,16 +5,20 @@
 A SCP: Secret Laboratory LabApi plugin that prevent players to use VPN or Proxy.
 
 # Features
+
 - Blocks players with VPN or Proxy to play on the server.
 - Saves the checked IPs and banned IPs to prevents the api quota exceed the limit
 - If a player blocked by the plugin, it will send a message to discord (webhook)
 
 # Configuration
+
 - In the config file you need to set the ApiKey and the Webhook
 
 # For Support
+
 <a href='https://discord.gg/KmpA8cfaSA'><img src='https://www.allkpop.com/upload/2021/01/content/262046/1611711962-discord-button.png' height="100"></a>
 
 # Credits
+
 * Plugin made by MedveMarci
 
