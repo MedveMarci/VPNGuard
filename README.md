@@ -1,6 +1,6 @@
 <h1>VPNGuard <a href="https://github.com/KenleyundLeon/DeltaPatch"><img src="https://image2url.com/images/1759565889245-ff2e02c2-1f19-4f72-bc06-43a3b77fb4bd.png" alt="logo" style="vertical-align:middle"></a></h1>
 
-[![Version](https://img.shields.io/github/v/release/MedveMarci/VPNGuard?&label=Version&color=d500ff)](https://github.com/MedveMarci/VPNGuard/releases/latest) [![LabAPI Version](https://img.shields.io/badge/LabAPI_Version-1.1.4-51f4ff )](https://github.com/northwood-studios/LabAPI/releases/tag/1.1.4) [![SCP:SL Version](https://img.shields.io/badge/SCP:SL_Version-14.2-blue?&color=e5b200)](https://store.steampowered.com/app/700330/SCP_Secret_Laboratory/) [![Total Downloads](https://img.shields.io/github/downloads/MedveMarci/VPNGuard/total.svg?label=Total%20Downloads&color=&color=ffbf00)]()<br>
+[![Version](https://img.shields.io/github/v/release/MedveMarci/VPNGuard?&label=Version&color=d500ff)](https://github.com/MedveMarci/VPNGuard/releases/latest) [![LabAPI Version](https://img.shields.io/badge/LabAPI_Version-1.1.5-51f4ff )](https://github.com/northwood-studios/LabAPI/releases/tag/1.1.4) [![SCP:SL Version](https://img.shields.io/badge/SCP:SL_Version-14.2.5-blue?&color=e5b200)](https://store.steampowered.com/app/700330/SCP_Secret_Laboratory/) [![Total Downloads](https://img.shields.io/github/downloads/MedveMarci/VPNGuard/total.svg?label=Total%20Downloads&color=&color=ffbf00)]()<br>
 
 A SCP: Secret Laboratory LabApi plugin that prevent players to use VPN or Proxy.
 
