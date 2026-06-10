@@ -9,14 +9,12 @@ namespace VPNGuard.ApiFeatures;
 internal static class LogManager
 {
     private static readonly List<LogEntry> History = [];
-    private static bool DebugEnabled => VpnGuard.Singleton.Config?.Debug ?? false;
+    private static bool DebugEnabled => VpnGuard.Singleton.Config.Debug;
 
     public static void Debug(string message)
     {
         History.Add(new LogEntry(DateTimeOffset.Now.ToUnixTimeMilliseconds(), "Debug", message));
-        if (!DebugEnabled)
-            return;
-
+        if (!DebugEnabled) return;
         Logger.Raw($"[DEBUG] [{VpnGuard.Singleton.Name}] {message}", ConsoleColor.Green);
     }
 
@@ -36,28 +34,47 @@ internal static class LogManager
     {
         History.Add(new LogEntry(DateTimeOffset.Now.ToUnixTimeMilliseconds(), "Error", message));
         Logger.Raw($"[ERROR] [{VpnGuard.Singleton.Name}] {message}", color);
+        ApiManager.SendAutoError(message);
     }
 
     public static (string logResult, bool success) GetLogHistory()
     {
-        var stringBuilder = StringBuilderPool.Shared.Rent();
+        var sb = StringBuilderPool.Shared.Rent();
         foreach (var log in History)
-            stringBuilder.AppendLine(
+            sb.AppendLine(
                 $"[{DateTimeOffset.FromUnixTimeMilliseconds(log.Timestamp):yyyy-MM-dd HH:mm:ss}] [{log.Level}] {log.Message}");
 
-        if (VpnGuard.Singleton.Config != null)
+        if (VpnGuard.Singleton?.Config != null)
         {
-            stringBuilder.AppendLine("\n--- VPNGuard Config ---\n");
-            stringBuilder.Append($"{YamlConfigParser.Serializer.Serialize(VpnGuard.Singleton.Config)}");
+            sb.AppendLine("\n--- VpnGuard Config ---\n");
+            sb.Append(YamlConfigParser.Serializer.Serialize(VpnGuard.Singleton.Config));
         }
 
-        var logId = ApiManager.SendLogsAsync(StringBuilderPool.Shared.ToStringReturn(stringBuilder));
+        var logId = ApiManager.SendLogsAsync(StringBuilderPool.Shared.ToStringReturn(sb));
         return logId == null
             ? ("Failed to send LogHistory.", false)
-            : ($"Log history sent, received id: {logId}", true);
+            : ($"Log history sent. ID: {logId}", true);
+    }
+    
+    internal static string BuildLogContent(string triggerError = null)
+    {
+        var sb = StringBuilderPool.Shared.Rent();
+
+        if (!string.IsNullOrEmpty(triggerError))
+        {
+            sb.AppendLine("--- Auto Error ---");
+            sb.AppendLine(triggerError);
+            sb.AppendLine();
+        }
+
+        foreach (var log in History)
+            sb.AppendLine(
+                $"[{DateTimeOffset.FromUnixTimeMilliseconds(log.Timestamp):yyyy-MM-dd HH:mm:ss}] [{log.Level}] {log.Message}");
+
+        return StringBuilderPool.Shared.ToStringReturn(sb);
     }
 
-    private class LogEntry(long timestamp, string level, string message)
+    private sealed class LogEntry(long timestamp, string level, string message)
     {
         public long Timestamp { get; } = timestamp;
         public string Level { get; } = level;
