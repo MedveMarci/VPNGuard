@@ -24,7 +24,7 @@ public static class EventHandler
             }
 
             if (CheckedPlayers.Contains(ev.Player.IpAddress)) return;
-            IpHub.CheckIpHub(ev.Player.IpAddress, ev.Player);
+            VpnChecker.Check(ev.Player.IpAddress, ev.Player);
         }
         catch (Exception e)
         {
