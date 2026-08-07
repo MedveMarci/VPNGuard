@@ -17,7 +17,7 @@ internal static class ApiManager
 
     private static readonly Dictionary<string, DateTime> AutoErrorLastSent = new();
     private static readonly TimeSpan DedupWindow = TimeSpan.FromSeconds(5);
-    
+
     internal static void CheckForUpdates()
     {
         Task.Run(async () =>
@@ -135,7 +135,7 @@ internal static class ApiManager
             return null;
         }
     }
-    
+
     internal static void SendAutoError(string errorMessage)
     {
         Task.Run(() =>
@@ -181,7 +181,7 @@ internal static class ApiManager
             }
         });
     }
-    
+
     private static string ComputeShortHash(string input)
     {
         using var md5 = MD5.Create();

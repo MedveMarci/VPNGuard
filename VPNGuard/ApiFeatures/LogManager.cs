@@ -55,7 +55,7 @@ internal static class LogManager
             ? ("Failed to send LogHistory.", false)
             : ($"Log history sent. ID: {logId}", true);
     }
-    
+
     internal static string BuildLogContent(string triggerError = null)
     {
         var sb = StringBuilderPool.Shared.Rent();

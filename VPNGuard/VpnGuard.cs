@@ -16,11 +16,10 @@ public class VpnGuard : Plugin<Config>
     public static VpnGuard Singleton;
     public string BannedIpsFilePath;
     public string CheckedIpsFilePath;
-    public string githubRepo = "MedveMarci/VPNGuard";
     public override string Name => "VPNGuard";
     public override string Author => "MedveMarci";
     public override string Description => "vpn_guard";
-    public override Version Version { get; } = new(1, 0, 5);
+    public override Version Version { get; } = new(1, 1, 0);
     public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
     public override bool IsTransparent => true;
 
